@@ -19,7 +19,7 @@ public class formTambahUser extends javax.swing.JFrame {
 
 //  Fungsi Tambah User //
     private void addUser(){
-        // Mengambil data dari field input
+    // Mengambil data dari field input
         String IdUser = inputIdUser.getText();
         String nama = inputFullName.getText();
         String role = (String) selectRole.getSelectedItem();

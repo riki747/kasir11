@@ -2,7 +2,6 @@
 package formAdmin;
 import formLogin.Login;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
 
@@ -80,26 +79,19 @@ public class formUtama extends javax.swing.JFrame {
             dispose();
         });
         
-        addMenu(menuHome);
-        addMenu(menuProfile);
-        addMenu(menuDataUser);
-        addMenu(menuDataProduk);
-        addMenu(menuTransaksi);
-        addMenu(menuLogout);
-    }
-
-      private void addMenu(formMenuList... menu) {
-        for (formMenuList menus : menu) {
-            listMenuItem.add(menus);
-            ArrayList<formMenuList> subMenu = menus.getSubMenu();
-            for (formMenuList m : subMenu) {
-                addMenu(m);
-            }
-        }
+        listMenuItem.add(menuHome);
+        listMenuItem.add(menuProfile);
+        listMenuItem.add(menuDataUser);
+        listMenuItem.add(menuDataProduk);
+        listMenuItem.add(menuTransaksi);
+        listMenuItem.add(menuLogout);
+        
         listMenuItem.revalidate();
         listMenuItem.repaint();
-    }    
+    }
+    
 //  set menu item end //
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

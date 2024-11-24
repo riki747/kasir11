@@ -4,18 +4,175 @@
  */
 package formAdmin;
 
-/**
- *
- * @author muqta
- */
-public class formDataProduk extends javax.swing.JPanel {
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import konektor.koneksi;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-    /**
-     * Creates new form formDataProduk
-     */
+public class formDataProduk extends javax.swing.JPanel {
+    
+
     public formDataProduk() {
         initComponents();
+        loadDataProduk();
+        
+//      Menonaktifkan tombol Edit dan Delete saat pertama kali dibuka
+        btnEdit.setEnabled(false);
+        btnHapus.setEnabled(false);
+        
+                // Menambahkan ListSelectionListener ke tabel
+        tabProduk.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                // Cek jika ada baris yang dipilih
+                if (!event.getValueIsAdjusting() && tabProduk.getSelectedRow() != -1) {
+                    btnEdit.setEnabled(true);
+                    btnHapus.setEnabled(true);
+                } else {
+                    btnEdit.setEnabled(false);
+                    btnHapus.setEnabled(false);
+                }
+            }
+        });
     }
+    
+//  Fungsi loadDataProduk //
+    
+    private void loadDataProduk() {
+        DefaultTableModel model = (DefaultTableModel) tabProduk.getModel();
+        model.setRowCount(0); // Reset tabel
+
+        try {
+            Connection con = koneksi.getConnection();
+            Statement st = con.createStatement();
+            String query = "SELECT id_produk, nama_produk, harga_beli, harga_jual, stok, satuan FROM tb_produk"; 
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                String idProduk = rs.getString("id_produk");
+                String namaProduk = rs.getString("nama_produk");
+                String hargaBeli = rs.getString("harga_beli");
+                String hargaJual = rs.getString("harga_jual");
+                String stokProduk = rs.getString("stok");
+                String satuanProduk = rs.getString("satuan");
+                
+                // Tambahkan data ke model tabel
+                model.addRow(new Object[]{idProduk, namaProduk, hargaBeli, hargaJual, stokProduk, satuanProduk});
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    } 
+        
+//  Fungsi loadDataProduk END //    
+    
+//  Fungsi editProduk //
+    
+    private void editDataProduk(){
+        int selectedRow = tabProduk.getSelectedRow();
+        if (selectedRow != -1) {
+            String idProduk = tabProduk.getValueAt(selectedRow, 0).toString();
+            String namaProduk = tabProduk.getValueAt(selectedRow, 1).toString();
+            String hargaBeli = tabProduk.getValueAt(selectedRow, 2).toString();
+            String hargaJual = tabProduk.getValueAt(selectedRow, 3).toString();
+            String stokProduk = tabProduk.getValueAt(selectedRow, 4).toString();
+            String satuanProduk = tabProduk.getValueAt(selectedRow, 5).toString();
+
+        //   Buka form edit dengan data pengguna yang dipilih
+            formEditProduk editProduk = new formEditProduk(idProduk, namaProduk, hargaBeli, hargaJual, stokProduk, satuanProduk);
+            editProduk.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                //  Muat ulang data tabel setelah form edit ditutup
+                    loadDataProduk();
+                }
+            });
+            editProduk.setVisible(true);
+            
+        }
+    }
+    
+//  Fungsi editProduk END //
+    
+//  Fungsi deleteProduk //
+    
+    private void hapusDataProduk(){
+        int selectedRow = tabProduk.getSelectedRow();
+        if (selectedRow != -1) {
+            String idProduk = tabProduk.getValueAt(selectedRow, 0).toString();
+            // Konfirmasi dan hapus data dari database berdasarkan ID
+            int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus profuk ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    Connection con = koneksi.getConnection();
+                    Statement st = con.createStatement();
+                    String deleteQuery = "DELETE FROM tb_produk WHERE id_produk = '" + idProduk + "'";
+                    st.executeUpdate(deleteQuery);
+                    loadDataProduk();
+                    JOptionPane.showMessageDialog(this, "produk berhasil dihapus.");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menghapus data.");
+                }
+            }
+        }
+    }
+    
+//  Fungsi deleteProduk END //
+    
+//  Fungsi cariProduk //
+    private void searchProduk(){
+        String keyword = inputSearching.getText().trim();
+        DefaultTableModel model = (DefaultTableModel) tabProduk.getModel();
+
+        if (keyword.isEmpty()) {
+            loadDataProduk();
+            JOptionPane.showMessageDialog(this, "Kolom pencarian harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        model.setRowCount(0);
+
+        try {
+            Connection con = koneksi.getConnection();
+            Statement st = con.createStatement();
+
+            // Query untuk mencari data user berdasarkan ID, Nama, atau Email yang cocok dengan kata kunci
+            String query = "SELECT id_produk, nama_produk, harga_beli, harga_jual, stok, satuan " +
+                            "FROM tb_produk WHERE id_produk LIKE '%" + keyword + "%' " +
+                            "OR nama_produk LIKE '%" + keyword + "%' ";
+
+            ResultSet rs = st.executeQuery(query);
+
+            // Jika data ditemukan, tambahkan ke model tabel
+            while (rs.next()) {
+                String idProduk = rs.getString("id_produk");
+                String namaProduk = rs.getString("nama_produk");
+                String hargaBeli = rs.getString("harga_beli");
+                String hargaJual = rs.getString("harga_jual");
+                String stokProduk = rs.getString("stok");
+                String satuanProduk = rs.getString("satuan");
+                model.addRow(new Object[]{idProduk, namaProduk, hargaBeli, hargaJual, stokProduk, satuanProduk});
+            }
+
+            // Pesan jika tidak ada data ditemukan
+            if (model.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Data user tidak ditemukan.", "Pencarian", JOptionPane.INFORMATION_MESSAGE);
+                loadDataProduk(); // Tampilkan kembali data asli jika tidak ada hasil
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mencari data.");
+        }
+    }
+    
+//  Fungsi cariProduk END //  
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -161,19 +318,27 @@ public class formDataProduk extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-
+        formTambahProduk tambahProduk = new formTambahProduk();
+        tambahProduk.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            //  Muat ulang data tabel setelah form edit ditutup
+                loadDataProduk();
+                }
+            });
+        tambahProduk.setVisible(true);
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
+        editDataProduk();
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        // TODO add your handling code here:
+        hapusDataProduk();
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        searchProduk();
     }//GEN-LAST:event_btnSearchActionPerformed
 
 

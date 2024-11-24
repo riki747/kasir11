@@ -14,11 +14,12 @@ public class formDataUser extends javax.swing.JPanel {
     public formDataUser() {
         initComponents();
         loadDataUser();
-        // Menonaktifkan tombol Edit dan Delete saat pertama kali dibuka
+        
+//      Menonaktifkan tombol Edit dan Delete saat pertama kali dibuka
         btnEdit.setEnabled(false);
         btnHapus.setEnabled(false);
 
-        // Menambahkan ListSelectionListener ke tabel
+//      Menambahkan ListSelectionListener ke tabel
         tabUSer.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
@@ -159,8 +160,6 @@ public class formDataUser extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mencari data.");
         }
     }
-
-
 //  search user//    
     
     @SuppressWarnings("unchecked")
