@@ -237,6 +237,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="inputIdProduk">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputIdProdukActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblNamaProduk">
               <Properties>
@@ -247,6 +250,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="inputNamaProduk">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputNamaProdukActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblHargaBeli">
               <Properties>
@@ -270,6 +276,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="inputHargaJual">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputHargaJualActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblStok">
               <Properties>
@@ -280,6 +289,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="inputStok">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputStokActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblSatuan">
               <Properties>
@@ -299,6 +311,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectSatuanActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>

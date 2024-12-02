@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package formAdmin;
-
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
@@ -25,7 +24,7 @@ public class formDataProduk extends javax.swing.JPanel {
         btnEdit.setEnabled(false);
         btnHapus.setEnabled(false);
         
-                // Menambahkan ListSelectionListener ke tabel
+//      Menambahkan ListSelectionListener ke tabel
         tabProduk.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
@@ -41,6 +40,7 @@ public class formDataProduk extends javax.swing.JPanel {
         });
     }
     
+    
 //  Fungsi loadDataProduk //
     
     private void loadDataProduk() {
@@ -50,7 +50,7 @@ public class formDataProduk extends javax.swing.JPanel {
         try {
             Connection con = koneksi.getConnection();
             Statement st = con.createStatement();
-            String query = "SELECT id_produk, nama_produk, harga_beli, harga_jual, stok, satuan FROM tb_produk"; 
+            String query = "SELECT id_produk, nama_produk, harga_beli, harga_jual, stok, satuan FROM produk"; 
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
@@ -111,7 +111,7 @@ public class formDataProduk extends javax.swing.JPanel {
                 try {
                     Connection con = koneksi.getConnection();
                     Statement st = con.createStatement();
-                    String deleteQuery = "DELETE FROM tb_produk WHERE id_produk = '" + idProduk + "'";
+                    String deleteQuery = "DELETE FROM produk WHERE id_produk = '" + idProduk + "'";
                     st.executeUpdate(deleteQuery);
                     loadDataProduk();
                     JOptionPane.showMessageDialog(this, "produk berhasil dihapus.");
@@ -143,7 +143,7 @@ public class formDataProduk extends javax.swing.JPanel {
 
             // Query untuk mencari data user berdasarkan ID, Nama, atau Email yang cocok dengan kata kunci
             String query = "SELECT id_produk, nama_produk, harga_beli, harga_jual, stok, satuan " +
-                            "FROM tb_produk WHERE id_produk LIKE '%" + keyword + "%' " +
+                            "FROM produk WHERE id_produk LIKE '%" + keyword + "%' " +
                             "OR nama_produk LIKE '%" + keyword + "%' ";
 
             ResultSet rs = st.executeQuery(query);
@@ -223,6 +223,12 @@ public class formDataProduk extends javax.swing.JPanel {
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHapusActionPerformed(evt);
+            }
+        });
+
+        inputSearching.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputSearchingActionPerformed(evt);
             }
         });
 
@@ -322,7 +328,6 @@ public class formDataProduk extends javax.swing.JPanel {
         tambahProduk.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-            //  Muat ulang data tabel setelah form edit ditutup
                 loadDataProduk();
                 }
             });
@@ -340,6 +345,10 @@ public class formDataProduk extends javax.swing.JPanel {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         searchProduk();
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void inputSearchingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSearchingActionPerformed
+        searchProduk();
+    }//GEN-LAST:event_inputSearchingActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

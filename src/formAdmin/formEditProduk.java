@@ -13,9 +13,8 @@ public class formEditProduk extends javax.swing.JFrame {
     public formEditProduk(String idProduk, String namaProduk, String hargaBeli, String hargaJual, String stokProduk, String satuanProduk) {
         initComponents();
         
-    //  Simpan ID pengguna dan data lainnya
+    //  Simpan IdProduk dan data lainnya
         this.idProduk = idProduk;
-        // Isi field dengan data pengguna
         inputIdProduk.setText(idProduk);
         inputNamaProduk.setText(namaProduk);
         inputHargaBeli.setText(hargaBeli);
@@ -46,7 +45,7 @@ public class formEditProduk extends javax.swing.JFrame {
 
         try {
             Connection con = koneksi.getConnection();
-            PreparedStatement checkUser = con.prepareStatement("SELECT * FROM tb_produk WHERE id_produk = ?");
+            PreparedStatement checkUser = con.prepareStatement("SELECT * FROM produk WHERE id_produk = ?");
             checkUser.setString(1, IdProdukLama);
             ResultSet rs;
             rs = checkUser.executeQuery();
@@ -56,7 +55,7 @@ public class formEditProduk extends javax.swing.JFrame {
             }
 
             // 2. Lakukan update data
-            String updateQuery = "UPDATE tb_produk SET id_produk = ?, nama_produk = ?, harga_beli = ?, harga_jual = ?, stok = ?, satuan = ? WHERE id_produk = ?";
+            String updateQuery = "UPDATE produk SET id_produk = ?, nama_produk = ?, harga_beli = ?, harga_jual = ?, stok = ?, satuan = ? WHERE id_produk = ?";
             PreparedStatement pst = con.prepareStatement(updateQuery);
 
             pst.setString(1, idProdukBaru);
@@ -69,9 +68,9 @@ public class formEditProduk extends javax.swing.JFrame {
 
             int rowsAffected = pst.executeUpdate();
             if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Data user berhasil diperbarui.");
+                JOptionPane.showMessageDialog(this, "Produk berhasil diperbarui.");
             } else {
-                JOptionPane.showMessageDialog(this, "Data user gagal diperbarui.");
+                JOptionPane.showMessageDialog(this, "Produk gagal diperbarui.");
             }
             this.dispose();
             
@@ -317,7 +316,7 @@ public class formEditProduk extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inputHargaBeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputHargaBeliActionPerformed
-        
+        inputHargaJual.requestFocus();
     }//GEN-LAST:event_inputHargaBeliActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -330,19 +329,19 @@ public class formEditProduk extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void inputIdProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputIdProdukActionPerformed
-        // TODO add your handling code here:
+        inputNamaProduk.requestFocus();
     }//GEN-LAST:event_inputIdProdukActionPerformed
 
     private void inputNamaProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputNamaProdukActionPerformed
-        // TODO add your handling code here:
+        inputHargaBeli.requestFocus();
     }//GEN-LAST:event_inputNamaProdukActionPerformed
 
     private void inputHargaJualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputHargaJualActionPerformed
-        // TODO add your handling code here:
+        inputStok.requestFocus();
     }//GEN-LAST:event_inputHargaJualActionPerformed
 
     private void inputStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputStokActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_inputStokActionPerformed
 
     public static void main(String args[]) {

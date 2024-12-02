@@ -13,19 +13,19 @@ public class formProfile extends javax.swing.JPanel {
 
 //    private int userId;
 
-    public formProfile(int userId) {
+    public formProfile(String userId) {
         initComponents();
         getProfile(userId);
     }
     
 //  set profil user yang login //
-    private void getProfile(int userId){
-        String query = "SELECT * FROM tb_user WHERE id_user=?";
+    private void getProfile(String userId){
+        String query = "SELECT * FROM user WHERE id_user=?";
         
          try {
             Connection conn = koneksi.getConnection();
             PreparedStatement pst = conn.prepareStatement(query);
-            pst.setInt(1, userId);
+            pst.setString(1, userId);
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {

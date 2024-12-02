@@ -17,10 +17,7 @@ public class formEditUser extends javax.swing.JFrame {
     public formEditUser(String idUser, String nama, String role, String email, String username, String password) {
         initComponents();
         inputIdUser.requestFocus();
-        
-        // Simpan ID pengguna dan data lainnya
         this.idUser = idUser;
-        // Isi field dengan data pengguna
         inputIdUser.setText(idUser);
         inputFullName.setText(nama);
         selectRole.setSelectedItem(role);
@@ -49,7 +46,7 @@ public class formEditUser extends javax.swing.JFrame {
             Connection con = koneksi.getConnection();
 
             // 1. Cek jika ID user ada di dalam database
-            PreparedStatement checkUser = con.prepareStatement("SELECT * FROM tb_user WHERE id_user = ?");
+            PreparedStatement checkUser = con.prepareStatement("SELECT * FROM user WHERE id_user = ?");
             checkUser.setString(1, IDUserLama);
             ResultSet rs;
             rs = checkUser.executeQuery();
@@ -59,7 +56,7 @@ public class formEditUser extends javax.swing.JFrame {
             }
 
             // 2. Lakukan update data
-            String updateQuery = "UPDATE tb_user SET id_user = ?, nama_user = ?, role = ?, email_user = ?, username_user = ?, password_user = ? WHERE id_user = ?";
+            String updateQuery = "UPDATE user SET id_user = ?, nama_user = ?, role = ?, email_user = ?, username_user = ?, password_user = ? WHERE id_user = ?";
             PreparedStatement pst = con.prepareStatement(updateQuery);
 
             pst.setString(1, IDUserBaru);

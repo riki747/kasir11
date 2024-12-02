@@ -1,6 +1,5 @@
 package formKasir;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import formAdmin.formMenuList;
 import formLogin.Login;
@@ -12,11 +11,29 @@ import javax.swing.JFrame;
  */
 public class formMenuUtama extends javax.swing.JFrame {
 
+    private String userId;
+    private String nama;
+    private String email;
+    private String role;
+    private String userName;
+    private String Password;
+    
     public formMenuUtama() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);   
         execute();
     }
+    
+    //  set nama user yang login start //    
+    public void setUser(String userId, String nama, String email, String role, String userName, String Password) {
+        this.userId = userId;
+        this.nama = nama;
+        this.email = email;
+        this.role = role;
+        this.userName = userName;
+        this.Password = Password;
+    }
+//  set nama user yang login end //
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -214,7 +231,7 @@ public class formMenuUtama extends javax.swing.JFrame {
         });
         formMenuList menuProfile = new formMenuList(iconProfile, false, null, "Profile", (ActionEvent e) -> {
             isiContent.removeAll();
-            isiContent.add(new formProfileKasir());
+            isiContent.add(new formProfileKasir(userId));
             isiContent.repaint();
             isiContent.revalidate();
         });
@@ -235,23 +252,6 @@ public class formMenuUtama extends javax.swing.JFrame {
           
         listMenuItemKasir.revalidate();
         listMenuItemKasir.repaint();
-       
-
-//        addMenuKasir(menuKasir);
-//        addMenuKasir(menuProduk);
-//        addMenuKasir(menuRiwayatTransaksi);
-//        addMenuKasir(menuLaporan);
     }
     
-//    private void addMenuKasir(formMenuList... menu) {
-//        for (formMenuList menu1 : menu) {
-//            listMenuItemKasir.add(menu1);
-//            ArrayList<formMenuList> subMenu = menu1.getSubMenu();
-//            for (formMenuList m : subMenu) {
-//                addMenuKasir(m);
-//            }
-//        }
-//        listMenuItemKasir.revalidate();
-//        listMenuItemKasir.repaint();
-//    }
 }

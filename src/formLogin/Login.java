@@ -146,7 +146,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void inputUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputUsernameFocusGained
-        String inputU= inputUsername.getText();
+        String inputU = inputUsername.getText();
         if(inputU.equals("username")){
             inputUsername.setText("");
         }
@@ -176,7 +176,7 @@ public class Login extends javax.swing.JFrame {
     // Fungsi Login Start //
     private void login(){
         Connection conn = koneksi.getConnection(); 
-        String sql = "SELECT * FROM tb_user WHERE username_user=? AND password_user=?";   
+        String sql = "SELECT * FROM user WHERE username_user=? AND password_user=?";   
         String username = inputUsername.getText();
         String password = new String(inputPassword.getPassword());
         try{
@@ -185,7 +185,7 @@ public class Login extends javax.swing.JFrame {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();          
             if (rs.next()) {
-                int userId = rs.getInt("id_user");
+                String userId = rs.getString("id_user");
                 String nama = rs.getString("nama_user");
                 String email = rs.getString("email_user");
                 String role = rs.getString("role");
@@ -202,6 +202,7 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "berhasil login sebagai kasir");
                     formMenuUtama mainMenu = new formMenuUtama();
                     mainMenu.setVisible(true);
+                    mainMenu.setUser(userId, nama, email, role, userName, Password);
                     mainMenu.setExtendedState(Frame.MAXIMIZED_BOTH);
                     this.dispose();
                 }else {

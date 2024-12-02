@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 
 public class formUtama extends javax.swing.JFrame {
 
-    private int userId;
+    private String userId;
     private String nama;
     private String email;
     private String role;
@@ -20,7 +20,7 @@ public class formUtama extends javax.swing.JFrame {
         execute();
     }
 //  set nama user yang login start //    
-    public void setUser(int userId, String nama, String email, String role, String userName, String Password) {
+    public void setUser(String userId, String nama, String email, String role, String userName, String Password) {
         this.userId = userId;
         this.nama = nama;
         this.email = email;
@@ -41,7 +41,8 @@ public class formUtama extends javax.swing.JFrame {
         ImageIcon iconLogout = new ImageIcon(getClass().getResource("/image/logout.png"));
 
         
-        // menu list // 
+//      Set menu list // 
+        
         formMenuList menuHome = new formMenuList(iconHome, false, null, "Home", (ActionEvent e) -> {
             isiContent.removeAll();
             isiContent.add(new formHome());

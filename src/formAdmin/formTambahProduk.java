@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package formAdmin;
 
 import java.sql.Connection;
@@ -10,15 +6,8 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import konektor.koneksi;
 
-/**
- *
- * @author muqta
- */
 public class formTambahProduk extends javax.swing.JFrame {
 
-    /**
-     * Creates new form formTambahProduk
-     */
     public formTambahProduk() {
         initComponents();
     }
@@ -40,7 +29,7 @@ public class formTambahProduk extends javax.swing.JFrame {
         }
 
         // SQL untuk menambahkan data user
-        String sql = "INSERT INTO tb_produk (id_produk, nama_produk, harga_beli, harga_jual, stok, satuan) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO produk (id_produk, nama_produk, harga_beli, harga_jual, stok, satuan) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             // Koneksi ke database
@@ -74,6 +63,7 @@ public class formTambahProduk extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
 // Fungsi Tambah User End //  
     
     @SuppressWarnings("unchecked")
@@ -158,8 +148,20 @@ public class formTambahProduk extends javax.swing.JFrame {
         lblIdProduk.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         lblIdProduk.setText("Id Produk");
 
+        inputIdProduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputIdProdukActionPerformed(evt);
+            }
+        });
+
         lblNamaProduk.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         lblNamaProduk.setText("Nama Produk");
+
+        inputNamaProduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputNamaProdukActionPerformed(evt);
+            }
+        });
 
         lblHargaBeli.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         lblHargaBeli.setText("Harga Beli");
@@ -173,13 +175,30 @@ public class formTambahProduk extends javax.swing.JFrame {
         lblHargaJual.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         lblHargaJual.setText("Harga Jual");
 
+        inputHargaJual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputHargaJualActionPerformed(evt);
+            }
+        });
+
         lblStok.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         lblStok.setText("Stok");
+
+        inputStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputStokActionPerformed(evt);
+            }
+        });
 
         lblSatuan.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         lblSatuan.setText("Satuan");
 
         selectSatuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih Satuan -", "pcs", "kg" }));
+        selectSatuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectSatuanActionPerformed(evt);
+            }
+        });
 
         btnSave.setBackground(new java.awt.Color(51, 51, 255));
         btnSave.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
@@ -285,7 +304,7 @@ public class formTambahProduk extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inputHargaBeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputHargaBeliActionPerformed
-        // TODO add your handling code here:
+        inputHargaJual.requestFocus();
     }//GEN-LAST:event_inputHargaBeliActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -297,9 +316,26 @@ public class formTambahProduk extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void inputIdProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputIdProdukActionPerformed
+        inputNamaProduk.requestFocus();
+    }//GEN-LAST:event_inputIdProdukActionPerformed
+
+    private void inputNamaProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputNamaProdukActionPerformed
+        inputHargaBeli.requestFocus();
+    }//GEN-LAST:event_inputNamaProdukActionPerformed
+
+    private void inputHargaJualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputHargaJualActionPerformed
+        inputStok.requestFocus();
+    }//GEN-LAST:event_inputHargaJualActionPerformed
+
+    private void selectSatuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectSatuanActionPerformed
+        addProduk();
+    }//GEN-LAST:event_selectSatuanActionPerformed
+
+    private void inputStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputStokActionPerformed
+        selectSatuan.requestFocus();
+    }//GEN-LAST:event_inputStokActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

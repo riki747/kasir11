@@ -43,7 +43,7 @@ public class formDataUser extends javax.swing.JPanel {
         try {
             Connection con = koneksi.getConnection();
             Statement st = con.createStatement();
-            String query = "SELECT id_user, nama_user, role, email_user, username_user, password_user FROM tb_user"; 
+            String query = "SELECT id_user, nama_user, role, email_user, username_user, password_user FROM user"; 
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
@@ -100,7 +100,7 @@ public class formDataUser extends javax.swing.JPanel {
                 try {
                     Connection con = koneksi.getConnection();
                     Statement st = con.createStatement();
-                    String deleteQuery = "DELETE FROM tb_user WHERE id_user = '" + idUser + "'";
+                    String deleteQuery = "DELETE FROM user WHERE id_user = '" + idUser + "'";
                     st.executeUpdate(deleteQuery);
                     loadDataUser();
                     JOptionPane.showMessageDialog(this, "Data user berhasil dihapus.");
@@ -133,7 +133,7 @@ public class formDataUser extends javax.swing.JPanel {
 
             // Query untuk mencari data user berdasarkan ID, Nama, atau Email yang cocok dengan kata kunci
             String query = "SELECT id_user, nama_user, email_user, role, username_user, password_user " +
-                           "FROM tb_user WHERE id_user LIKE '%" + keyword + "%' " +
+                           "FROM user WHERE id_user LIKE '%" + keyword + "%' " +
                            "OR nama_user LIKE '%" + keyword + "%' " +
                            "OR email_user LIKE '%" + keyword + "%'";
 
@@ -172,7 +172,7 @@ public class formDataUser extends javax.swing.JPanel {
         btnEdit = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabUSer = new javax.swing.JTable();
 
@@ -214,11 +214,17 @@ public class formDataUser extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(51, 51, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cari.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        btnSearch.setBackground(new java.awt.Color(51, 51, 255));
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cari.png"))); // NOI18N
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
             }
         });
 
@@ -266,7 +272,7 @@ public class formDataUser extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btnSearch)
                         .addGap(37, 37, 37))))
         );
         bgDataUSerLayout.setVerticalGroup(
@@ -274,7 +280,7 @@ public class formDataUser extends javax.swing.JPanel {
             .addGroup(bgDataUSerLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(bgDataUSerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgDataUSerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,9 +327,9 @@ public class formDataUser extends javax.swing.JPanel {
         tambahuser.setVisible(true);
     }//GEN-LAST:event_btnTambahActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         searchUser();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         editDataUser();
@@ -334,13 +340,17 @@ public class formDataUser extends javax.swing.JPanel {
         hapusDataUser();
     }//GEN-LAST:event_btnHapusActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        btnSearch.requestFocus();
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bgDataUSer;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnTambah;
-    private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbDataUser;

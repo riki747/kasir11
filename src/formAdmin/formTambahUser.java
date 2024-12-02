@@ -34,7 +34,7 @@ public class formTambahUser extends javax.swing.JFrame {
         }
 
         // SQL untuk menambahkan data user
-        String sql = "INSERT INTO tb_user (id_user, nama_user, role, email_user, username_user, password_user) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user (id_user, nama_user, role, email_user, username_user, password_user) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             // Koneksi ke database
@@ -54,7 +54,6 @@ public class formTambahUser extends javax.swing.JFrame {
 
             if (rowsInserted > 0) {
                 JOptionPane.showMessageDialog(this, "User berhasil ditambahkan!");
-                // Kosongkan field setelah data berhasil disimpan
                 inputIdUser.setText("");
                 inputFullName.setText("");
                 selectRole.setSelectedIndex(0);
