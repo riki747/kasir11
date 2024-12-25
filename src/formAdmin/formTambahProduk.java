@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import konektor.koneksi;
+import koneksi.koneksidb;
 
 public class formTambahProduk extends javax.swing.JFrame {
 
@@ -33,7 +33,7 @@ public class formTambahProduk extends javax.swing.JFrame {
 
         try {
             // Koneksi ke database
-            Connection conn = koneksi.getConnection();
+            Connection conn = koneksidb.getConnection();
             PreparedStatement pst = conn.prepareStatement(sql);
 
             // Mengisi parameter untuk statement SQL

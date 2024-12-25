@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import konektor.koneksi;
+import koneksi.koneksidb;
 
 public class formEditProduk extends javax.swing.JFrame {
     
@@ -44,7 +44,7 @@ public class formEditProduk extends javax.swing.JFrame {
         }
 
         try {
-            Connection con = koneksi.getConnection();
+            Connection con = koneksidb.getConnection();
             PreparedStatement checkUser = con.prepareStatement("SELECT * FROM produk WHERE id_produk = ?");
             checkUser.setString(1, IdProdukLama);
             ResultSet rs;

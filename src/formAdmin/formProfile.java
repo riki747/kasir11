@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import konektor.koneksi;
+import koneksi.koneksidb;
 
 public class formProfile extends javax.swing.JPanel {
 
@@ -23,7 +23,7 @@ public class formProfile extends javax.swing.JPanel {
         String query = "SELECT * FROM user WHERE id_user=?";
         
          try {
-            Connection conn = koneksi.getConnection();
+            Connection conn = koneksidb.getConnection();
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, userId);
             ResultSet rs = pst.executeQuery();

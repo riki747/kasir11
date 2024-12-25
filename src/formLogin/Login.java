@@ -3,7 +3,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import konektor.koneksi;
+import koneksi.koneksidb;
 import formAdmin.formUtama;
 import formKasir.formMenuUtama;
 import java.awt.Frame;
@@ -32,7 +32,6 @@ public class Login extends javax.swing.JFrame {
         setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(587, 385));
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 formMouseDragged(evt);
@@ -175,8 +174,8 @@ public class Login extends javax.swing.JFrame {
 
     // Fungsi Login Start //
     private void login(){
-        Connection conn = koneksi.getConnection(); 
-        String sql = "SELECT * FROM user WHERE username_user=? AND password_user=?";   
+        Connection conn = koneksidb.getConnection(); 
+        String sql = "SELECT * FROM user WHERE username=? AND password=?;";   
         String username = inputUsername.getText();
         String password = new String(inputPassword.getPassword());
         try{
@@ -185,26 +184,31 @@ public class Login extends javax.swing.JFrame {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();          
             if (rs.next()) {
-                String userId = rs.getString("id_user");
-                String nama = rs.getString("nama_user");
-                String email = rs.getString("email_user");
-                String role = rs.getString("role");
-                String userName = rs.getString("username_user");
-                String Password = rs.getString("password_user");
-                if (role.equalsIgnoreCase("admin")){                    
+                String UserId = rs.getString("id_user");
+                String Username = rs.getString("username");
+                String Password = rs.getString("password");
+                String Role = rs.getString("role");
+                String Fullname = rs.getString("fullname");
+                String Email = rs.getString("email");
+                String Notelepon = rs.getString("no_telepon");
+                String Alamat = rs.getString("alamat");
+
+
+             
+                if (Role.equalsIgnoreCase("admin")){                    
                     JOptionPane.showMessageDialog(this, "berhasil login sebagai admin");
                     formUtama mainMenu = new formUtama();
+                    mainMenu.setUser(UserId, Username, Password, Role, Fullname, Email, Notelepon, Alamat); // Pastikan semua data diisi
                     mainMenu.setVisible(true);
-                    mainMenu.setUser(userId, nama, email, role, userName, Password);
                     mainMenu.setExtendedState(Frame.MAXIMIZED_BOTH);
                     this.dispose();
-                }else if (role.equalsIgnoreCase("kasir")){
-                    JOptionPane.showMessageDialog(this, "berhasil login sebagai kasir");
-                    formMenuUtama mainMenu = new formMenuUtama();
-                    mainMenu.setVisible(true);
-                    mainMenu.setUser(userId, nama, email, role, userName, Password);
-                    mainMenu.setExtendedState(Frame.MAXIMIZED_BOTH);
-                    this.dispose();
+//                }else if (role.equalsIgnoreCase("kasir")){
+//                    JOptionPane.showMessageDialog(this, "berhasil login sebagai kasir");
+//                    formMenuUtama mainMenu = new formMenuUtama();
+//                    mainMenu.setVisible(true);
+//                    mainMenu.setUser(userId, nama, email, role, userName, Password);
+//                    mainMenu.setExtendedState(Frame.MAXIMIZED_BOTH);
+//                    this.dispose();
                 }else {
                     JOptionPane.showMessageDialog(this, "username atau password salah");
                 }

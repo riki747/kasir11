@@ -2,32 +2,46 @@
 package formAdmin;
 import formLogin.Login;
 import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
+import java.util.Date;
 
 public class formUtama extends javax.swing.JFrame {
 
-    private String userId;
-    private String nama;
-    private String email;
-    private String role;
-    private String userName;
-    private String Password;
+    private String UserId;
+    private String Username;
+    private String Password; 
+    private String Role;
+    private String Fullname;
+    private String Email;
+    private String Notelepon;
+    private String Alamat;
+    
+//  set nama user yang login start //    
+    public void setUser(String UserId, String Username, String Password, String Role, String Fullname, String Email, String Notelepon, String Alamat) {
 
+        this.UserId = UserId;
+        this.Username = Username;
+        this.Password = Password;
+        this.Role = Role;
+        this.Fullname = Fullname;
+        this.Email = Email;
+        this.Notelepon = Notelepon;
+        this.Alamat = Alamat;
+
+        lb_u.setText("Selamat Datang, " + this.Username ); // Perbarui label
+    }
+
+    
     public formUtama() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         execute();
+        Date();
+       
     }
-//  set nama user yang login start //    
-    public void setUser(String userId, String nama, String email, String role, String userName, String Password) {
-        this.userId = userId;
-        this.nama = nama;
-        this.email = email;
-        this.role = role;
-        this.userName = userName;
-        this.Password = Password;
-    }
+
 //  set nama user yang login end //
 
 //  set menu item //
@@ -51,7 +65,7 @@ public class formUtama extends javax.swing.JFrame {
         });
         formMenuList menuProfile = new formMenuList(iconProfile, false, null, "Profil", (ActionEvent e) ->{
             isiContent.removeAll();
-            isiContent.add(new formProfile(userId));
+            isiContent.add(new formProfile(UserId));
             isiContent.repaint();
             isiContent.revalidate();
         });
@@ -100,7 +114,8 @@ public class formUtama extends javax.swing.JFrame {
         header = new javax.swing.JPanel();
         header1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lb_u = new javax.swing.JLabel();
+        lb_tanggal = new javax.swing.JLabel();
         listMenu = new javax.swing.JPanel();
         listMenuItem = new javax.swing.JPanel();
         content = new javax.swing.JPanel();
@@ -122,8 +137,11 @@ public class formUtama extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/market-icons-15733-removebg-preview.png"))); // NOI18N
         jLabel1.setText("Toko Kami");
 
-        jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
-        jLabel2.setText("Nama User");
+        lb_u.setFont(new java.awt.Font("News701 BT", 0, 14)); // NOI18N
+        lb_u.setText("Nama User");
+
+        lb_tanggal.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        lb_tanggal.setText("Tanggal");
 
         javax.swing.GroupLayout header1Layout = new javax.swing.GroupLayout(header1);
         header1.setLayout(header1Layout);
@@ -131,8 +149,10 @@ public class formUtama extends javax.swing.JFrame {
             header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(header1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 588, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addGap(90, 90, 90)
+                .addComponent(lb_u)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 391, Short.MAX_VALUE)
+                .addComponent(lb_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         header1Layout.setVerticalGroup(
@@ -142,7 +162,9 @@ public class formUtama extends javax.swing.JFrame {
                 .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addGroup(header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_u)
+                            .addComponent(lb_tanggal))
                         .addContainerGap())))
         );
 
@@ -248,9 +270,16 @@ public class formUtama extends javax.swing.JFrame {
     private javax.swing.JPanel header1;
     private javax.swing.JPanel isiContent;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lb_tanggal;
+    private javax.swing.JLabel lb_u;
     private javax.swing.JPanel listMenu;
     private javax.swing.JPanel listMenuItem;
     // End of variables declaration//GEN-END:variables
 
+    private void Date() {
+        Date TanggalSekarang = new Date();
+        SimpleDateFormat TanggalWaktu = new SimpleDateFormat("dd - MM - yyyy");
+        String tanggal = TanggalWaktu.format(TanggalSekarang);
+        lb_tanggal.setText(tanggal);
+    }
 }

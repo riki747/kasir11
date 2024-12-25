@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import konektor.koneksi;
+import koneksi.koneksidb;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -48,7 +48,7 @@ public class formDataProduk extends javax.swing.JPanel {
         model.setRowCount(0); // Reset tabel
 
         try {
-            Connection con = koneksi.getConnection();
+            Connection con = koneksidb.getConnection();
             Statement st = con.createStatement();
             String query = "SELECT id_produk, nama_produk, harga_beli, harga_jual, stok, satuan FROM produk"; 
             ResultSet rs = st.executeQuery(query);
@@ -109,7 +109,7 @@ public class formDataProduk extends javax.swing.JPanel {
             int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus profuk ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
-                    Connection con = koneksi.getConnection();
+                    Connection con = koneksidb.getConnection();
                     Statement st = con.createStatement();
                     String deleteQuery = "DELETE FROM produk WHERE id_produk = '" + idProduk + "'";
                     st.executeUpdate(deleteQuery);
@@ -138,7 +138,7 @@ public class formDataProduk extends javax.swing.JPanel {
         model.setRowCount(0);
 
         try {
-            Connection con = koneksi.getConnection();
+            Connection con = koneksidb.getConnection();
             Statement st = con.createStatement();
 
             // Query untuk mencari data user berdasarkan ID, Nama, atau Email yang cocok dengan kata kunci
